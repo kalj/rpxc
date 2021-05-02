@@ -24,12 +24,16 @@ RUN rustup target add arm-unknown-linux-gnueabihf
 RUN rustup target add armv7-unknown-linux-gnueabihf
 
 USER root
-RUN apt-get install -y gcc-arm-linux-gnueabihf
+RUN apt-get install -y gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
 # RUN apt-get install -y gcc-armv7l-linux-gnueabihf
+
+RUN apt-get install -y cmake
 
 ARG RASPBERRY_PI_TOOLS_COMMIT_ID=49719d5544cd33b8c146235e1420f68cd92420fe
 RUN curl -sL https://github.com/raspberrypi/tools/archive/$RASPBERRY_PI_TOOLS_COMMIT_ID.tar.gz \
         | tar xzf - -C /usr/local --strip-components=1 tools-${RASPBERRY_PI_TOOLS_COMMIT_ID}/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf
+
+RUN apt-get install -y fonts-dejavu-core
 
 USER rust
 
